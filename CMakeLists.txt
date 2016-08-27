@@ -5,9 +5,11 @@ project(LCCVLabCG)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-add_executable(LCCVLabCG src/main.cpp)
+set(OBJECTS)
 
-find_package(FLTK REQUIRED)
+add_executable(LCCVLabCG src/main.cpp Wall.cpp Wall.h)
+
+
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(Qt5Widgets REQUIRED)

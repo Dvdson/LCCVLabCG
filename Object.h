@@ -16,7 +16,7 @@ private:
 
 public:
     bool setPosition(GLfloat X, GLfloat Y, GLfloat Z);
-    virtual void drawObj(void);
+    virtual void drawObj(void) = 0;
 
 };
 

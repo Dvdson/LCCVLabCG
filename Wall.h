@@ -5,8 +5,9 @@
 #ifndef LCCVLABCG_WALL_H
 #define LCCVLABCG_WALL_H
 
+#include <Object.h>
 
-class Wall {
+class Wall: public Object{
 
 };
 
