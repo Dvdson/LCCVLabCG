@@ -16,15 +16,24 @@ void init(void) {
     glOrtho(0.0, winWidth, 0.0, winHeight, -1.0, 1.0);
 }
 
+void drawPlan(float x, float y, float z, int width, int height) {
+    glColor3f(1,0,0);
+        glBegin(GL_QUADS);
+        glVertex3f(x, y, z);
+        glVertex3f(x, height-y, z);
+        glVertex3f(width-x, height-y, z);
+        glVertex3f(width-x, y, z);
+    glEnd();
+}
+
 void display(void) {
+
+    float x = 320, y = 180, z = -1.0;
 
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glPointSize(50);
     glColor3f(1,0,0);
-    glBegin(GL_POINTS);
-        glVertex2f(winWidth/2, winHeight/2);
-    glEnd();
+    drawPlan(x,y,z,winWidth,winHeight);
 
     glutSwapBuffers();
 }
