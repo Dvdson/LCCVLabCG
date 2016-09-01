@@ -14,43 +14,52 @@ void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
     //first face
 
     glBegin(GL_QUADS);
-    glColor4f(1,1,1,1);
+    //glColor4f(1,1,1,1);//white
         glVertex3f(0, 0, 0);
         glVertex3f(x1, 0, 0);
         glVertex3f(x1, y1, 0);
         glVertex3f(0, y1, 0);
+    glEnd();
 
     //second face
-    glColor4f(1,1,0,1);
+    //glColor4f(1,1,0,1);//yellow
+    glBegin(GL_QUADS);
         glVertex3f(0, 0, 0);
         glVertex3f(0, 0, z1);
         glVertex3f(0, y1, z1);
         glVertex3f(0, y1, 0);
+    glEnd();
 
     //third face
-    glColor4f(1,0,1,1);
-
+    glBegin(GL_QUADS);
+    //glColor4f(1,0,1,1);
         glVertex3f(0, 0, 0);
         glVertex3f(x1, 0, 0);
         glVertex3f(x1, 0, z1);
         glVertex3f(0, 0, z1);
+    glEnd();
 
     //fourth face
-    glColor4f(1,0,0,1);
+    glBegin(GL_QUADS);
+    //glColor4f(1,0,0,1);
         glVertex3f(x1, y1, z1);
         glVertex3f(0, y1, z1);
         glVertex3f(0, 0, z1);
         glVertex3f(x1, 0, z1);
+    glEnd();
 
     //fifth face
-    glColor4f(0,0,1,1);
+    glBegin(GL_QUADS);
+    //glColor4f(0,0,1,1);
         glVertex3f(x1, y1, z1);
         glVertex3f(x1, y1, 0);
         glVertex3f(0, y1, 0);
         glVertex3f(0, y1, z1);
+    glEnd();
 
     //sixth face
-    glColor4f(0,1,0,1);
+    glBegin(GL_QUADS);
+    //glColor4f(0,1,0,1);
         glVertex3f(x1, y1, z1);
         glVertex3f(x1, y1, 0);
         glVertex3f(x1, 0, 0);
