@@ -7,7 +7,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(OBJECTS)
 
-add_executable(LCCVLabCG src/main.cpp Wall.cpp Wall.h src/OpenGLCustomObj.h)
+add_executable(LCCVLabCG src/main.cpp src/OpenGLCustomObj.h)
 
 
 find_package(OpenGL REQUIRED)
