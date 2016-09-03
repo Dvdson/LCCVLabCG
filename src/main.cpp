@@ -9,7 +9,7 @@ using namespace std;
 
 
 void init(void) {
-    glClearColor(0.2, 0.2, 0.2, 0);
+    glClearColor(0, 0, 0, 0);
 
     glEnable(GL_DEPTH_TEST);
     glClearDepth(1.0);
@@ -30,8 +30,12 @@ void display(void) {
 
     //glMatrixMode(GL_MODELVIEW);
     //glLoadIdentity();
+
+//    TODO camera is always center in (0,0,0), to right rotate I need to do the same thing
+
     gluLookAt(camPosX, camPosY, camPosZ, camPosX + camLookX , camPosY + camLookY, camPosZ + camLookZ, 0, 1, 0);
     camPosX = 0, camPosY = 0, camPosZ = 0;
+    camLookX = 0, camLookY = 0, camLookZ = -1;
 
 
 
@@ -43,6 +47,10 @@ void display(void) {
         glColor4f(1,1,1,1);
         drawHexahedron(100,-0.5,100);
     glPopMatrix();
+
+    glColor4f(0.5,0.5,0.5,0.5);
+    drawRoom();
+
 
     //displayRoom();
     //drawPlan(x,y,z,winWidth,winHeight);

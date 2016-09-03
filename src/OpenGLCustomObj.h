@@ -14,11 +14,8 @@ int winWidth = 1280, winHeight = 720;
 
 float xPast = 0;
 GLdouble camLookX=0,camLookY=0,camLookZ =-1.0;
-GLdouble camPosX=0, camPosY=3, camPosZ=1;
+GLfloat camPosX=0, camPosY=3, camPosZ=1;
 GLdouble camSencitivity=1;
-
-
-
 
 void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
 
@@ -81,5 +78,53 @@ void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
 
 }
 
+void drawRoom(void){
+
+    GLfloat hWall = 30.0;
+    GLfloat tWall = 5;
+
+    // pillar 1
+    glPushMatrix();
+        glTranslatef(0,0,-30);
+        //glRotatef();
+        drawHexahedron(tWall,hWall,tWall);
+    glPopMatrix();
+
+    // pillar 2
+    glPushMatrix();
+        glTranslatef(70-tWall,0,-30);
+        //glRotatef();
+        drawHexahedron(tWall,hWall,tWall);
+    glPopMatrix();
+
+    // pillar 3
+    glPushMatrix();
+        glTranslatef(70-tWall,0,-(100-tWall));
+        //glRotatef();
+        drawHexahedron(tWall,hWall,tWall);
+    glPopMatrix();
+
+    // pillar 4
+    glPushMatrix();
+        glTranslatef(50-tWall,0,-(100-tWall));
+        //glRotatef();
+        drawHexahedron(tWall,hWall,tWall);
+    glPopMatrix();
+
+    // pillar 5
+    glPushMatrix();
+        glTranslatef(50-tWall,0,-85);
+        //glRotatef();
+        drawHexahedron(tWall,hWall,tWall);
+    glPopMatrix();
+
+    // pillar 6
+    glPushMatrix();
+        glTranslatef(0,0,-85);
+        //glRotatef();
+        drawHexahedron(tWall,hWall,tWall);
+    glPopMatrix();
+
+}
 
 #endif //LCCVLABCG_OPENGLCUSTOMOBJ_H
