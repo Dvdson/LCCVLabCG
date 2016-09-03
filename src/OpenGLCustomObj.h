@@ -7,6 +7,19 @@
 
 #include <GL/glut.h>
 
+int winWidth = 1280, winHeight = 720;
+
+// the key states. These variables will be zero
+//when no key is being presses
+
+float xPast = 0;
+GLdouble camLookX=0,camLookY=0,camLookZ =-1.0;
+GLdouble camPosX=0, camPosY=3, camPosZ=1;
+GLdouble camSencitivity=1;
+
+
+
+
 void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
 
 

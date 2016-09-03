@@ -6,18 +6,10 @@
 
 using namespace std;
 
-int winWidth = 1280, winHeight = 720;
-
-bool firstT = true;
-
-GLfloat QPosX=0, QPosY=0, QPosZ=0;
-GLfloat keySencitivity = 1;
-GLdouble camPosX=0, camPosY=0, camPosZ=1;
-GLdouble camSencitivity=1;
 
 
 void init(void) {
-    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClearColor(0.2, 0.2, 0.2, 0);
 
     glEnable(GL_DEPTH_TEST);
     glClearDepth(1.0);
@@ -38,7 +30,7 @@ void display(void) {
 
     //glMatrixMode(GL_MODELVIEW);
     //glLoadIdentity();
-    gluLookAt(camPosX, camPosY, camPosZ, camPosX, camPosY, camPosZ-1, 0, 1, 0);
+    gluLookAt(camPosX, camPosY, camPosZ, camPosX + camLookX , camPosY + camLookY, camPosZ + camLookZ, 0, 1, 0);
     camPosX = 0, camPosY = 0, camPosZ = 0;
 
 
@@ -47,9 +39,9 @@ void display(void) {
 //    glLoadIdentity();
     //floor
     glPushMatrix();
-        glTranslatef(QPosX,QPosY,QPosZ);
+        glTranslatef(0,0,-100);
         glColor4f(1,1,1,1);
-        drawHexahedron(1,1,1);
+        drawHexahedron(100,-0.5,100);
     glPopMatrix();
 
     //displayRoom();
@@ -57,6 +49,7 @@ void display(void) {
 
     glutSwapBuffers();
 }
+
 
 void reshape(GLint w, GLint h){
 
@@ -66,7 +59,7 @@ void reshape(GLint w, GLint h){
     glLoadIdentity();
 
     gluPerspective(60.0,(GLfloat) w/(GLfloat) h,1.0,200.0);
-    gluLookAt(camPosX,camPosY,camPosZ,camPosX,camPosY,camPosZ-1,0,1,0);
+    //gluLookAt(camPosX,camPosY,camPosZ,camPosX,camPosY,camPosZ-1,0,1,0);
 
     glutPostRedisplay();
 }
@@ -75,67 +68,27 @@ void keyboard(unsigned char key, int x, int y) {
     switch(key)
     {
         case 'w':
-            camPosY += keySencitivity;
-            //glutPostRedisplay();
-            break;
-        case 's':
-            camPosY -= keySencitivity;
-            //glutPostRedisplay();
-            break;
-        case 'a':
-            QPosX -= keySencitivity;
-            //glutPostRedisplay();
-            break;
-        case 'd':
-            QPosX += keySencitivity;
-            //glutPostRedisplay();
-            break;
-        case 'r':
-            QPosZ -= keySencitivity;
-            //glutPostRedisplay();
-            break;
-        case 'f':
-            QPosZ += keySencitivity;
-            //glutPostRedisplay();
-            break;
-        case '1':
-            keySencitivity -= 0.1;
-            //glutPostRedisplay();
-            break;
-        case '2':
-            keySencitivity += 0.1;
-            //glutPostRedisplay();
-            break;
-        case 'i':
-            camPosY += camSencitivity;
-            //glutPostRedisplay();
-            break;
-        case 'k':
-            camPosY -= camSencitivity;
-            //glutPostRedisplay();
-            break;
-        case 'j':
-            camPosX -= camSencitivity;
-            //glutPostRedisplay();
-            break;
-        case 'l':
-            camPosX += camSencitivity;
-            //glutPostRedisplay();
-            break;
-        case 'y':
             camPosZ -= camSencitivity;
             //glutPostRedisplay();
             break;
-        case 'h':
+        case 's':
             camPosZ += camSencitivity;
             //glutPostRedisplay();
             break;
-        case '3':
+        case 'a':
+            camPosX -= camSencitivity;
+            //glutPostRedisplay();
+            break;
+        case 'd':
+            camPosX += camSencitivity;
+            //glutPostRedisplay();
+            break;
+        case '1':
             camSencitivity -= 0.1;
             cout << camSencitivity << endl;
             //glutPostRedisplay();
             break;
-        case '4':
+        case '2':
             camSencitivity += 0.1;
             cout << camSencitivity << endl;
             //glutPostRedisplay();
@@ -143,13 +96,39 @@ void keyboard(unsigned char key, int x, int y) {
         default:
             break;
     }
-    cout << "( " << to_string(camPosX) << endl;
-    cout << ", " << to_string(camPosY) << endl;
-    cout << ", " << to_string(camPosZ) << endl;
-    cout << ")" << endl;
+//    cout << "( " << to_string(camPosX);
+//    cout << ", " << to_string(camPosY);
+//    cout << ", " << to_string(camPosZ);
+//    cout << ")" << endl;
+
+
     glutPostRedisplay();
 }
 
+void mouseMove(int x, int y) {
+
+    // update deltaAngle
+    float deltaAngle = (x - xPast) * 0.01f;
+
+    // update camera's direction
+    camLookX = sin(deltaAngle);
+    camLookZ = -cos(deltaAngle);
+
+
+
+    cout << "( " << to_string(camLookX);
+    cout << ", " << to_string(camLookY);
+    cout << ", " << to_string(camLookZ);
+    cout << ") ";
+
+    cout << "xPastAngle: (" << to_string(xPast) << ") and";
+    cout << "deltaAngle: (" << to_string(deltaAngle) << ")" << endl;
+
+
+    xPast = x;
+    glutPostRedisplay();
+
+}
 
 
 int main(int argc, char** argv) {
@@ -166,6 +145,7 @@ int main(int argc, char** argv) {
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
+    glutPassiveMotionFunc(mouseMove);
 
     glutMainLoop();
 
