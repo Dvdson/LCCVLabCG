@@ -52,7 +52,7 @@ void display(void) {
     seeVar();
     gluLookAt(camPosX, camPosY, camPosZ, camPosX + camDirX , camPosY, camPosZ + camDirZ, 0, 1, 0);
     camPosX = 0, camPosY = 0, camPosZ = 0;
-    camDirX = 0, camDirZ = 0;
+    camDirX = 0, camDirZ = -1;
 
 
 
@@ -65,8 +65,17 @@ void display(void) {
         drawHexahedron(100,-0.5,100);
     glPopMatrix();
 
-    glColor4f(0.5,0.5,0.5,0.5);
+    glColor4f(0.75,0.75,0.75,0.5);
     drawRoom();
+    drawDoor();
+
+
+    //roof
+    glPushMatrix();
+        glColor4f(1,1,1,1);
+        glTranslatef(0,30,-30);
+        drawHexahedron(70,1,-70);
+    glPopMatrix();
 
 
     //displayRoom();
@@ -93,22 +102,22 @@ void keyboard(unsigned char key, int x, int y) {
     switch(key)
     {
         case 'w':
-            camPosZ = -camSencitivity;
+            camPosZ -= camSencitivity;
            // camPosX = camSencitivity*camLookX;
             //glutPostRedisplay();
             break;
         case 's':
-            camPosZ = +camSencitivity;
+            camPosZ += camSencitivity;
             //camPosX = -camSencitivity*camLookX;
             //glutPostRedisplay();
             break;
         case 'a':
-            camPosX = -camSencitivity;
+            camPosX -= camSencitivity;
             //camPosX = camSencitivity*camLookZ;
             //glutPostRedisplay();
             break;
         case 'd':
-            camPosX = camSencitivity;
+            camPosX += camSencitivity;
             //camPosX = -camSencitivity*camLookZ;
             //glutPostRedisplay();
             break;

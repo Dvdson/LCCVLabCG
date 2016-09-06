@@ -15,9 +15,9 @@ int winWidth = 1280, winHeight = 720;
 //when no key is being presses
 
 GLdouble xPast = 0, DirAngle = 3*PI/2;
-GLdouble camLookX=sin(DirAngle),camLookY=0,camLookZ =-cos(DirAngle);
+GLdouble camLookX=0,camLookY=3,camLookZ =-1;
 GLdouble camDirX=0, camDirZ=-1;
-GLdouble camPosX=0, camPosY=3, camPosZ=1;
+GLdouble camPosX=0, camPosY=3, camPosZ=0;
 GLdouble camSencitivity=1;
 
 void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
@@ -86,48 +86,104 @@ void drawRoom(void){
     GLfloat hWall = 30.0;
     GLfloat tWall = 5;
 
-    //
-    glPushMatrix();
-        glTranslatef(0,0,-30);
-        //glRotatef();
-        drawHexahedron(tWall,hWall,tWall);
-    glPopMatrix();
+    // begin of front door wall
+        glPushMatrix();
+            glTranslatef(0,0,-30);
+            //glRotatef();
+            drawHexahedron(tWall,hWall,tWall);
+        glPopMatrix();
 
-    // pillar 2
+        glPushMatrix();
+            glTranslatef(tWall,2*hWall/3,-30);
+            //glRotatef();
+            drawHexahedron(3*tWall,hWall/3,tWall);
+        glPopMatrix();
+
+        glPushMatrix();
+            glTranslatef(4*tWall,0,-30);
+            //glRotatef();
+            drawHexahedron(70-4*tWall,hWall,tWall);
+        glPopMatrix();
+    //end of front door wall
+
+    // second wall
     glPushMatrix();
         glTranslatef(70-tWall,0,-30);
         //glRotatef();
-        drawHexahedron(tWall,hWall,tWall);
+        drawHexahedron(tWall,hWall,-(70-tWall));
     glPopMatrix();
 
-    // pillar 3
+    // third wall
     glPushMatrix();
-        glTranslatef(70-tWall,0,-(100-tWall));
+        glTranslatef(50,0,-100);
         //glRotatef();
-        drawHexahedron(tWall,hWall,tWall);
+        drawHexahedron(20,hWall,tWall);
     glPopMatrix();
 
-    // pillar 4
+    // 4 wall
     glPushMatrix();
-        glTranslatef(50-tWall,0,-(100-tWall));
+        glTranslatef(50-tWall,0,-(85-tWall));
         //glRotatef();
-        drawHexahedron(tWall,hWall,tWall);
+        drawHexahedron(tWall,hWall,-(tWall+15));
     glPopMatrix();
 
-    // pillar 5
+    // wall with the window
     glPushMatrix();
-        glTranslatef(50-tWall,0,-85);
+        glTranslatef(0+tWall,0,-85);
         //glRotatef();
-        drawHexahedron(tWall,hWall,tWall);
+        drawHexahedron(50-tWall,hWall/3,tWall);
     glPopMatrix();
 
-    // pillar 6
+    // 6 wall
     glPushMatrix();
-        glTranslatef(0,0,-85);
+        glTranslatef(0,0,-(35-tWall));
         //glRotatef();
-        drawHexahedron(tWall,hWall,tWall);
+        drawHexahedron(tWall,hWall,-(60-tWall));
     glPopMatrix();
 
 }
 
+void drawDoor(void){
+
+//x=15
+//y=20
+
+    glPushMatrix();
+        glColor4f(0.9,0.9,0.9,1);
+        glTranslatef(5,0,-26);
+        drawHexahedron(9,8,1);
+
+        glColor4f(0.7,0.7,0.9,1);
+        glTranslatef(9,0,0);
+        drawHexahedron(6,8,1);
+
+        glColor4f(0.7,0.7,50.9,1);
+        glTranslatef(-9,8,0);
+        drawHexahedron(9,2,1);
+
+        glColor4f(0.5,0.5,0.5,1);
+        glTranslatef(9,0,0);
+        drawHexahedron(6,2,1);
+
+        glColor4f(0.9,0.9,0.9,1);
+        glTranslatef(-9,2,0);
+        drawHexahedron(6,10,1);
+
+        glColor4f(0.9,0.9,0.9,1);
+        glTranslatef(6,8,0);
+        drawHexahedron(3,2,1);
+
+        glColor4f(0.7,0.7,0.9,1);
+        glTranslatef(3,-8,0);
+        drawHexahedron(6,10,1);
+    glPopMatrix();
+
+
+}
+
+
+void drawWindow(void){
+
+
+}
 #endif //LCCVLABCG_OPENGLCUSTOMOBJ_H
