@@ -6,15 +6,18 @@
 #define LCCVLABCG_OPENGLCUSTOMOBJ_H
 
 #include <GL/glut.h>
+#define PI 3.14159265359
+
 
 int winWidth = 1280, winHeight = 720;
 
 // the key states. These variables will be zero
 //when no key is being presses
 
-float xPast = 0;
-GLdouble camLookX=0,camLookY=0,camLookZ =-1.0;
-GLfloat camPosX=0, camPosY=3, camPosZ=1;
+GLdouble xPast = 0, DirAngle = 3*PI/2;
+GLdouble camLookX=sin(DirAngle),camLookY=0,camLookZ =-cos(DirAngle);
+GLdouble camDirX=0, camDirZ=-1;
+GLdouble camPosX=0, camPosY=3, camPosZ=1;
 GLdouble camSencitivity=1;
 
 void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
@@ -83,7 +86,7 @@ void drawRoom(void){
     GLfloat hWall = 30.0;
     GLfloat tWall = 5;
 
-    // pillar 1
+    //
     glPushMatrix();
         glTranslatef(0,0,-30);
         //glRotatef();

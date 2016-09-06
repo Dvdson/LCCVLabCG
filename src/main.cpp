@@ -2,10 +2,27 @@
 #include <GL/glut.h>
 #include <math.h>
 #include "OpenGLCustomObj.h"
-#define PI 3.14159265359
 
 using namespace std;
 
+
+void seeVar(void){
+
+    cout << "camPosVector: ";
+    cout << "( " << to_string(camPosX);
+    cout << ", " << to_string(camPosY);
+    cout << ", " << to_string(camPosZ);
+    cout << ")" << endl;
+
+    cout << "camLookVector: ";
+    cout << "( " << to_string(camLookX);
+    cout << ", " << to_string(camLookY);
+    cout << ", " << to_string(camLookZ);
+    cout << ")" << endl;
+
+    cout << DirAngle << endl;
+
+}
 
 
 void init(void) {
@@ -32,10 +49,10 @@ void display(void) {
     //glLoadIdentity();
 
 //    TODO camera is always center in (0,0,0), to right rotate I need to do the same thing
-
-    gluLookAt(camPosX, camPosY, camPosZ, camPosX + camLookX , camPosY + camLookY, camPosZ + camLookZ, 0, 1, 0);
+    seeVar();
+    gluLookAt(camPosX, camPosY, camPosZ, camPosX + camDirX , camPosY, camPosZ + camDirZ, 0, 1, 0);
     camPosX = 0, camPosY = 0, camPosZ = 0;
-    camLookX = 0, camLookY = 0, camLookZ = -1;
+    camDirX = 0, camDirZ = 0;
 
 
 
@@ -76,19 +93,23 @@ void keyboard(unsigned char key, int x, int y) {
     switch(key)
     {
         case 'w':
-            camPosZ -= camSencitivity;
+            camPosZ = -camSencitivity;
+           // camPosX = camSencitivity*camLookX;
             //glutPostRedisplay();
             break;
         case 's':
-            camPosZ += camSencitivity;
+            camPosZ = +camSencitivity;
+            //camPosX = -camSencitivity*camLookX;
             //glutPostRedisplay();
             break;
         case 'a':
-            camPosX -= camSencitivity;
+            camPosX = -camSencitivity;
+            //camPosX = camSencitivity*camLookZ;
             //glutPostRedisplay();
             break;
         case 'd':
-            camPosX += camSencitivity;
+            camPosX = camSencitivity;
+            //camPosX = -camSencitivity*camLookZ;
             //glutPostRedisplay();
             break;
         case '1':
@@ -104,33 +125,26 @@ void keyboard(unsigned char key, int x, int y) {
         default:
             break;
     }
-//    cout << "( " << to_string(camPosX);
-//    cout << ", " << to_string(camPosY);
-//    cout << ", " << to_string(camPosZ);
-//    cout << ")" << endl;
-
-
+    seeVar();
     glutPostRedisplay();
 }
 
 void mouseMove(int x, int y) {
 
     // update deltaAngle
-    float deltaAngle = (x - xPast) * 0.01f;
+    GLdouble deltaAngle = (x - xPast) * 0.01f;
 
     // update camera's direction
-    camLookX = sin(deltaAngle);
-    camLookZ = -cos(deltaAngle);
+    camDirX = sin(deltaAngle);
+    camDirZ = -cos(deltaAngle);
+    DirAngle += deltaAngle;
+    camLookX += -cos(DirAngle);
+    camLookZ += sin(DirAngle);
 
+    seeVar();
 
-
-    cout << "( " << to_string(camLookX);
-    cout << ", " << to_string(camLookY);
-    cout << ", " << to_string(camLookZ);
-    cout << ") ";
-
-    cout << "xPastAngle: (" << to_string(xPast) << ") and";
-    cout << "deltaAngle: (" << to_string(deltaAngle) << ")" << endl;
+    cout << "sin: (" << to_string(camDirX) << ") ";
+    cout << "-cos: (" << to_string(camDirZ) << ")" << endl;
 
 
     xPast = x;
