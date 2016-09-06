@@ -9,9 +9,9 @@ using namespace std;
 void seeVar(void){
 
     cout << "camPosVector: ";
-    cout << "( " << to_string(camPosX);
-    cout << ", " << to_string(camPosY);
-    cout << ", " << to_string(camPosZ);
+    cout << "( " << to_string(camTransX);
+    cout << ", " << to_string(camTransY);
+    cout << ", " << to_string(camTransZ);
     cout << ")" << endl;
 
     cout << "camLookVector: ";
@@ -49,9 +49,9 @@ void display(void) {
     //glLoadIdentity();
 
 //    TODO camera is always center in (0,0,0), to right rotate I need to do the same thing
-    seeVar();
-    gluLookAt(camPosX, camPosY, camPosZ, camPosX + camDirX , camPosY, camPosZ + camDirZ, 0, 1, 0);
-    camPosX = 0, camPosY = 0, camPosZ = 0;
+    //seeVar();
+    gluLookAt(camTransX, camTransY, camTransZ, camTransX + camDirX , camTransY, camTransZ + camDirZ, 0, 1, 0);
+    camTransX = 0, camTransY = 0, camTransZ = 0;
     camDirX = 0, camDirZ = -1;
 
 
@@ -68,7 +68,18 @@ void display(void) {
     glColor4f(0.75,0.75,0.75,0.5);
     drawRoom();
     drawDoor();
+    drawWindow();
+    drawTables();
 
+
+    glPushMatrix();
+
+        glTranslatef(60,10,-35);
+        glRotatef(135,0,-1,0);
+        drawMonitor();
+        glTranslatef(7,-2,-5);
+        drawPC();
+    glPopMatrix();
 
     //roof
     glPushMatrix();
@@ -93,7 +104,7 @@ void reshape(GLint w, GLint h){
     glLoadIdentity();
 
     gluPerspective(60.0,(GLfloat) w/(GLfloat) h,1.0,200.0);
-    //gluLookAt(camPosX,camPosY,camPosZ,camPosX,camPosY,camPosZ-1,0,1,0);
+    //gluLookAt(camTransX,camTransY,camTransZ,camTransX,camTransY,camTransZ-1,0,1,0);
 
     glutPostRedisplay();
 }
@@ -102,23 +113,27 @@ void keyboard(unsigned char key, int x, int y) {
     switch(key)
     {
         case 'w':
-            camPosZ -= camSencitivity;
-           // camPosX = camSencitivity*camLookX;
+            camTransZ -= camSencitivity;
+            camPosZ += camTransZ;
+           // camTransX = camSencitivity*camLookX;
             //glutPostRedisplay();
             break;
         case 's':
-            camPosZ += camSencitivity;
-            //camPosX = -camSencitivity*camLookX;
+            camTransZ += camSencitivity;
+            camPosZ += camTransZ;
+            //camTransX = -camSencitivity*camLookX;
             //glutPostRedisplay();
             break;
         case 'a':
-            camPosX -= camSencitivity;
-            //camPosX = camSencitivity*camLookZ;
+            camTransX -= camSencitivity;
+            camPosX += camTransX;
+            //camTransX = camSencitivity*camLookZ;
             //glutPostRedisplay();
             break;
         case 'd':
-            camPosX += camSencitivity;
-            //camPosX = -camSencitivity*camLookZ;
+            camTransX += camSencitivity;
+            camPosX += camTransX;
+            //camTransX = -camSencitivity*camLookZ;
             //glutPostRedisplay();
             break;
         case '1':
