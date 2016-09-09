@@ -15,10 +15,10 @@ int winWidth = 1280, winHeight = 720;
 //when no key is being presses
 
 GLdouble xPast = 0, DirAngle = 3*PI/2;
-GLdouble camLookX=0,camLookY=15,camLookZ =-1;
-GLdouble camDirX=0, camDirZ=-1;
-GLdouble camPosX=0, camPosY=15, camPosZ=0;
-GLdouble camTransX=camPosX, camTransY=camPosY, camTransZ=camPosZ;
+GLdouble camLookX=0,camLookY=0,camLookZ =-1;
+//GLdouble camDirX=0, camDirZ=-1;
+//GLdouble camPosX=0, camPosY=15, camPosZ=0;
+GLdouble camTransX=0, camTransY=15, camTransZ=0;
 GLdouble camSencitivity=1;
 
 void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
