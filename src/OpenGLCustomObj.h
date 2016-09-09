@@ -243,11 +243,14 @@ void drawTables(void){
     glColor4f(0.8,0.8,0.8,1);
 
     glPushMatrix();
-    glTranslatef(30,10,-37);
-    drawHexahedron(35,-1 , 7);
-    glTranslatef(28,0,0);
-    drawHexahedron(7,-1 , -58);
+        glTranslatef(30,10,-37);
+        drawHexahedron(35,-1 , 7);
+        glTranslatef(28,0,0);
+        drawHexahedron(7,-1 , -58);
+        glTranslatef(-53,0,-7);
+        drawHexahedron(7, -1, -35);
     glPopMatrix();
+
 
 }
 
@@ -270,6 +273,76 @@ void drawMonitor(void){
 
     glTranslatef(-2,-1,0.5);
     drawHexahedron(5,4,1);
+
+
+}
+
+void drawChair(void){
+
+    //glColor4f(0.7,0.7,0.7,1);
+    glTranslatef(0,2,0);
+
+    drawHexahedron(1,1,4);
+    glTranslatef(0,0,3);
+    drawHexahedron(1,-1,1);
+    glTranslatef(0.5,-1.5,0.5);
+    glutSolidSphere(0.5,10,8);
+    glTranslatef(-0.5,1.5,-0.5);
+    glTranslatef(0,0,-3);
+
+    glRotatef(72,0,1,0);
+    drawHexahedron(1,1,4);
+    glTranslatef(0,0,3);
+    drawHexahedron(1,-1,1);
+    glTranslatef(0.5,-1.5,0.5);
+    glutSolidSphere(0.5,10,8);
+    glTranslatef(-0.5,1.5,-0.5);
+    glTranslatef(0,0,-3);
+
+    glRotatef(72,0,1,0);
+    drawHexahedron(1,1,4);
+    glTranslatef(0,0,3);
+    drawHexahedron(1,-1,1);
+    glTranslatef(0.5,-1.5,0.5);
+    glutSolidSphere(0.5,10,8);
+    glTranslatef(-0.5,1.5,-0.5);
+    glTranslatef(0,0,-3);
+
+    glRotatef(72,0,1,0);
+    drawHexahedron(1,1,4);
+    glTranslatef(0,0,3);
+    drawHexahedron(1,-1,1);
+    glTranslatef(0.5,-1.5,0.5);
+    glutSolidSphere(0.5,10,8);
+    glTranslatef(-0.5,1.5,-0.5);
+    glTranslatef(0,0,-3);
+
+    glRotatef(72,0,1,0);
+    drawHexahedron(1,1,4);
+    glTranslatef(0,0,3);
+    drawHexahedron(1,-1,1);
+    glTranslatef(0.5,-1.5,0.5);
+    glutSolidSphere(0.5,10,8);
+    glTranslatef(-0.5,1.5,-0.5);
+    glTranslatef(0,0,-3);
+
+    glRotatef(72,0,1,0);
+    glTranslatef(-0.5,0,-0.5);
+    drawHexahedron(1,4,1);
+    glTranslatef(0.5,0,0.5);
+
+    glTranslatef(0,4,0);
+    drawHexahedron(3,0.5,3);
+    drawHexahedron(3,0.5,-3);
+    drawHexahedron(-3,0.5,3);
+    drawHexahedron(-3,0.5,-3);
+
+    glTranslatef(0,0,3);
+    drawHexahedron(1,4,1);
+
+    glTranslatef(-2.5,2,0);
+    drawHexahedron(5,5,-1);
+
 
 }
 #endif //LCCVLABCG_OPENGLCUSTOMOBJ_H

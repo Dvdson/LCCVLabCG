@@ -72,14 +72,55 @@ void display(void) {
     drawWindow();
     drawTables();
 
-
+    //Everton PC
     glPushMatrix();
-
         glTranslatef(60,10,-35);
         glRotatef(135,0,-1,0);
         drawMonitor();
-        glTranslatef(7,-2,-5);
+        glRotatef(45,0,-1,0);
+        glTranslatef(10,-2,-6);
         drawPC();
+    glPopMatrix();
+    //Everton chairs
+    glPushMatrix();
+        glColor4f(0.5,0.5,0.7,1);
+        glTranslatef(55,0,-40);
+        glRotatef(135,0,-1,0);
+        drawChair();
+    glPopMatrix();
+
+    //JP PC
+    glPushMatrix();
+        glTranslatef(60,10,-90);
+        glRotatef(45,0,-1,0);
+        drawMonitor();
+        glRotatef(45,0,-1,0);
+        glTranslatef(10,-2,-6);
+        drawPC();
+    glPopMatrix();
+    //JP chairs
+    glPushMatrix();
+        glColor4f(0.5,0.5,0.7,1);
+        glTranslatef(55,0,-87);
+        glRotatef(80,0,-1,0);
+        drawChair();
+    glPopMatrix();
+
+    //Bal PC
+    glPushMatrix();
+        glTranslatef(10,10,-50);
+        glRotatef(240,0,-1,0);
+        drawMonitor();
+        glRotatef(30,0,-1,0);
+        glTranslatef(15,-12,-6);
+        drawPC();
+    glPopMatrix();
+    //Bal chairs
+    glPushMatrix();
+        glColor4f(0.5,0.5,0.7,1);
+        glTranslatef(15,0,-55);
+        glRotatef(120,0,1,0);
+        drawChair();
     glPopMatrix();
 
     //roof
