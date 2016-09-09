@@ -1,6 +1,7 @@
 #include <iostream>
 #include <GL/glut.h>
 #include <math.h>
+#include <stdlib.h>
 #include "OpenGLCustomObj.h"
 
 using namespace std;
@@ -31,7 +32,6 @@ void init(void) {
     glEnable(GL_DEPTH_TEST);
     glClearDepth(1.0);
 
-//      glOrtho(0.0, winWidth, 0.0, winHeight, -100, 100);
     glViewport(0,0,(GLsizei) winWidth, (GLsizei) winHeight);
 
     glMatrixMode(GL_MODELVIEW);
@@ -45,20 +45,13 @@ void display(void) {
             | GL_DEPTH_BUFFER_BIT
     );
 
+    //initilazing and setting the camera modelView
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
-//    TODO camera is always center in (0,0,0), to right rotate I need to do the same thing
-    //seeVar();
     gluPerspective(60.0,(GLfloat) winWidth/(GLfloat) winHeight,1.0,200.0);
-    gluLookAt(camTransX, camTransY, camTransZ, camTransX + camLookX , camTransY, camTransZ + camLookZ, 0, 1, 0);
-    //camTransX = 0, camTransY = 0, camTransZ = 0;
-    //camDirX = 0, camDirZ = -1;
+    gluLookAt(camTransX, camTransY, camTransZ, camTransX + camLookX , camTransY + camLookY, camTransZ + camLookZ, 0, 1, 0);
 
 
-
-//    glMatrixMode(GL_PROJECTION);
-//    glLoadIdentity();
     //floor
     glPushMatrix();
         glTranslatef(0,0,-100);
@@ -131,9 +124,6 @@ void display(void) {
     glPopMatrix();
 
 
-    //displayRoom();
-    //drawPlan(x,y,z,winWidth,winHeight);
-
     glutSwapBuffers();
 }
 
@@ -146,60 +136,50 @@ void reshape(GLint w, GLint h){
     glLoadIdentity();
 
     gluPerspective(60.0,(GLfloat) w/(GLfloat) h,1.0,200.0);
-    //gluLookAt(camTransX,camTransY,camTransZ,camTransX,camTransY,camTransZ-1,0,1,0);
 
     glutPostRedisplay();
 }
 
 void keyboard(unsigned char key, int x, int y) {
+    //moviment by (w,s,a,d) set new position , the position were the camera Look at, as reference
     switch(key)
     {
         case 'w':
             camTransZ += camSencitivity*camLookZ;
             camTransX += camSencitivity*camLookX;
-            //camPosZ += camTransZ;
-           // camTransX = camSencitivity*camLookX;
-            //glutPostRedisplay();
             break;
         case 's':
             camTransZ -= camSencitivity*camLookZ;
             camTransX -= camSencitivity*camLookX;
-            //camPosZ += camTransZ;
-            //camTransX = -camSencitivity*camLookX;
-            //glutPostRedisplay();
-            break;
         case 'a':
             camTransZ -= camSencitivity*camLookX;
             camTransX += camSencitivity*camLookZ;
-            //camPosX += camTransX;
-            //camTransX = camSencitivity*camLookZ;
-            //glutPostRedisplay();
             break;
         case 'd':
             camTransZ += camSencitivity*camLookX;
             camTransX -= camSencitivity*camLookZ;
-            //camPosX += camTransX;
-            //camTransX = -camSencitivity*camLookZ;
-            //glutPostRedisplay();
             break;
         case '1':
             camSencitivity -= 0.1;
             cout << camSencitivity << endl;
-            //glutPostRedisplay();
             break;
         case '2':
             camSencitivity += 0.1;
             cout << camSencitivity << endl;
-            //glutPostRedisplay();
+            break;
+        case 27:
+            exit(0);
             break;
         default:
             break;
     }
-    seeVar();
+    //seeVar();
     glutPostRedisplay();
 }
 
 void mouseMove(int x, int y) {
+
+    //were the camera look is defined by DirAngle in radians
 
     // update deltaAngle
     GLdouble deltaAngle = (x - xPast) * 0.01f;
@@ -209,8 +189,7 @@ void mouseMove(int x, int y) {
     camLookX = sin(DirAngle);
     camLookZ = -cos(DirAngle);
 
-    //seeVar();
-
+    //settinf new position of the xPast
     xPast = x;
     glutPostRedisplay();
 
