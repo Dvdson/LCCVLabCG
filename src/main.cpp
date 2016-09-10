@@ -61,9 +61,15 @@ void display(void) {
 
     glColor4f(0.75,0.75,0.75,0.5);
     drawRoom();
-    drawDoor();
     drawWindow();
     drawTables();
+
+    //door
+    glPushMatrix();
+        glTranslatef(5,0,-26);
+        glRotatef(doorAngle,0,1,0);
+        drawDoor();
+    glPopMatrix();
 
     //Everton PC
     glPushMatrix();
@@ -123,8 +129,22 @@ void display(void) {
         drawHexahedron(70,1,-75);
     glPopMatrix();
 
-
     glutSwapBuffers();
+
+    if(openDoor){
+
+        doorAngle+=1;
+        if(doorAngle >=90) openDoor = false;
+
+        glutPostRedisplay();
+    }
+    if(closeDoor){
+
+        doorAngle-=1;
+        if(doorAngle <=0) closeDoor = false;
+
+        glutPostRedisplay();
+    }
 }
 
 
@@ -151,6 +171,7 @@ void keyboard(unsigned char key, int x, int y) {
         case 's':
             camTransZ -= camSencitivity*camLookZ;
             camTransX -= camSencitivity*camLookX;
+            break;
         case 'a':
             camTransZ -= camSencitivity*camLookX;
             camTransX += camSencitivity*camLookZ;
@@ -158,6 +179,10 @@ void keyboard(unsigned char key, int x, int y) {
         case 'd':
             camTransZ += camSencitivity*camLookX;
             camTransX -= camSencitivity*camLookZ;
+            break;
+        case ' ':
+            if(closeDoor || doorAngle<=45) openDoor = true;
+            if(openDoor || doorAngle>45) closeDoor = true;
             break;
         case '1':
             camSencitivity -= 0.1;

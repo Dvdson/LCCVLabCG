@@ -21,6 +21,9 @@ GLdouble camLookX=0,camLookY=0,camLookZ =-1;
 GLdouble camTransX=0, camTransY=15, camTransZ=0;
 GLdouble camSencitivity=1;
 
+GLfloat doorAngle = 0;
+bool openDoor=false, closeDoor=false;
+
 void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
 
 
@@ -156,9 +159,7 @@ void drawDoor(void){
 //x=15
 //y=20
 
-    glPushMatrix();
         glColor4f(0.9,0.9,0.9,1);
-        glTranslatef(5,0,-26);
         drawHexahedron(9,8,1);
 
         glColor4f(0.7,0.7,0.9,1);
@@ -184,9 +185,6 @@ void drawDoor(void){
         glColor4f(0.7,0.7,0.9,1);
         glTranslatef(3,-8,0);
         drawHexahedron(6,10,1);
-    glPopMatrix();
-
-
 }
 
 
