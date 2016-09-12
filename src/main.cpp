@@ -9,17 +9,20 @@ using namespace std;
 
 void seeVar(void){
 
-    cout << "camPosVector: ";
-    cout << "( " << to_string(camTransX);
-    cout << ", " << to_string(camTransY);
-    cout << ", " << to_string(camTransZ);
-    cout << ")" << endl;
 
-    cout << "camLookVector: ";
-    cout << "( " << to_string(camLookX);
-    cout << ", " << to_string(camLookY);
-    cout << ", " << to_string(camLookZ);
-    cout << ")" << endl;
+
+
+//    cout << "camPosVector: ";
+//    cout << "( " << to_string(camTransX);
+//    cout << ", " << to_string(camTransY);
+//    cout << ", " << to_string(camTransZ);
+//    cout << ")" << endl;
+//
+//    cout << "camLookVector: ";
+//    cout << "( " << to_string(camLookX);
+//    cout << ", " << to_string(camLookY);
+//    cout << ", " << to_string(camLookZ);
+//    cout << ")" << endl;
 
     cout << DirAngle << endl;
 
@@ -181,8 +184,8 @@ void keyboard(unsigned char key, int x, int y) {
             camTransX -= camSencitivity*camLookZ;
             break;
         case ' ':
-            if(closeDoor || doorAngle<=45) openDoor = true;
-            if(openDoor || doorAngle>45) closeDoor = true;
+            if(closeDoor || doorAngle<=45) {openDoor = true;}
+            if(openDoor || doorAngle>45) {closeDoor = true;}
             break;
         case '1':
             camSencitivity -= 0.1;
