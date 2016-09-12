@@ -14,7 +14,7 @@ int winWidth = 1280, winHeight = 720;
 // the key states. These variables will be zero
 //when no key is being presses
 
-GLdouble xPast = 0, DirAngle = 3*PI/2;
+GLdouble xPast = 0, DirAngleX = 3*PI/2;
 GLdouble camLookX=0,camLookY=0,camLookZ =-1;
 //GLdouble camDirX=0, camDirZ=-1;
 //GLdouble camPosX=0, camPosY=15, camPosZ=0;

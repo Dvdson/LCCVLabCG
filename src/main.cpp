@@ -18,13 +18,13 @@ void seeVar(void){
 //    cout << ", " << to_string(camTransZ);
 //    cout << ")" << endl;
 //
-//    cout << "camLookVector: ";
-//    cout << "( " << to_string(camLookX);
-//    cout << ", " << to_string(camLookY);
-//    cout << ", " << to_string(camLookZ);
-//    cout << ")" << endl;
+    cout << "camLookVector: ";
+    cout << "( " << to_string(camLookX);
+    cout << ", " << to_string(camLookY);
+    cout << ", " << to_string(camLookZ);
+    cout << ")" << endl;
 
-    cout << DirAngle << endl;
+    cout << DirAngleX << endl;
 
 }
 
@@ -184,8 +184,8 @@ void keyboard(unsigned char key, int x, int y) {
             camTransX -= camSencitivity*camLookZ;
             break;
         case ' ':
-            if(closeDoor || doorAngle<=45) {openDoor = true;}
-            if(openDoor || doorAngle>45) {closeDoor = true;}
+            if(closeDoor || doorAngle<=45) {openDoor = true; closeDoor = false;}
+            else if(openDoor || doorAngle>45) {closeDoor = true; openDoor = false;}
             break;
         case '1':
             camSencitivity -= 0.1;
@@ -207,18 +207,21 @@ void keyboard(unsigned char key, int x, int y) {
 
 void mouseMove(int x, int y) {
 
-    //were the camera look is defined by DirAngle in radians
+    //were the camera look is defined by DirAngleX in radians
 
-    // update deltaAngle
-    GLdouble deltaAngle = (x - xPast) * 0.01f;
+    // update deltaAngleX
+    GLdouble deltaAngleX = (x - xPast) * 0.01f;
 
     // update camera's direction
-    DirAngle += deltaAngle;
-    camLookX = sin(DirAngle);
-    camLookZ = -cos(DirAngle);
+    DirAngleX += deltaAngleX;
+    camLookX = sin(DirAngleX);
+    camLookZ = -cos(DirAngleX);
 
     //settinf new position of the xPast
     xPast = x;
+//    seeVar();
+//    glutWarpPointer((int)(winWidth/2 + 0.5),(int)(winHeight/2 + 0.5));
+//    seeVar();
     glutPostRedisplay();
 
 }
