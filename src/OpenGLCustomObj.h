@@ -7,6 +7,7 @@
 
 #include <GL/glut.h>
 #define PI 3.14159265359
+#define MAX_NO_TEXTURES 20
 
 
 int winWidth = 1280, winHeight = 720;

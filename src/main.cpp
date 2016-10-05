@@ -33,12 +33,23 @@ void init(void) {
     glClearColor(0, 0, 0, 0);
 
     glEnable(GL_DEPTH_TEST);
+    glEnable ( GL_TEXTURE_2D );
+
     glClearDepth(1.0);
+    glPixelStorei ( GL_UNPACK_ALIGNMENT, 1 );
+
+    GLuint texture_id[MAX_NO_TEXTURES];
+    glGenTextures (1, texture_id);
 
     glViewport(0,0,(GLsizei) winWidth, (GLsizei) winHeight);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    texture_id[0] = 1001;
+    glBindTexture ( GL_TEXTURE_2D, texture_id[0] );
+
+    //carregar texturas aqui.
 
 }
 
