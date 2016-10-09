@@ -6,11 +6,15 @@
 #define LCCVLABCG_OPENGLCUSTOMOBJ_H
 
 #include <GL/glut.h>
+
 #define PI 3.14159265359
 #define MAX_NO_TEXTURES 20
 
 
+
 int winWidth = 1280, winHeight = 720;
+
+GLuint textID[10] = {1,2,3,4,5,6,7,8,9,10};
 
 // the key states. These variables will be zero
 //when no key is being presses
@@ -27,63 +31,90 @@ bool openDoor=false, closeDoor=false;
 
 void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
 
-
     GLfloat x1 =0+Dx, y1=0+Dy, z1=0+Dz;
     //first face
-
+    glBindTexture (GL_TEXTURE_2D, textID[0]);
     glBegin(GL_QUADS);
     //glColor4f(1,1,1,1);//white
+        glTexCoord2f(0,0);
         glVertex3f(0, 0, 0);
+        glTexCoord2f(0.1,0);
         glVertex3f(x1, 0, 0);
+        glTexCoord2f(0.1,0.1);
         glVertex3f(x1, y1, 0);
+        glTexCoord2f(0,0.1);
         glVertex3f(0, y1, 0);
     glEnd();
 
     //second face
     //glColor4f(1,1,0,1);//yellow
+    glBindTexture (GL_TEXTURE_2D, textID[0]);
     glBegin(GL_QUADS);
+        glTexCoord2f(0,0);
         glVertex3f(0, 0, 0);
+        glTexCoord2f(1,0);
         glVertex3f(0, 0, z1);
+        glTexCoord2f(1,1);
         glVertex3f(0, y1, z1);
+        glTexCoord2f(0,1);
         glVertex3f(0, y1, 0);
     glEnd();
 
     //third face
+    glBindTexture (GL_TEXTURE_2D, textID[0]);
     glBegin(GL_QUADS);
     //glColor4f(1,0,1,1);
+    glTexCoord2f(0,0);
         glVertex3f(0, 0, 0);
+    glTexCoord2f(1,0);
         glVertex3f(x1, 0, 0);
+    glTexCoord2f(1,1);
         glVertex3f(x1, 0, z1);
+    glTexCoord2f(0,1);
         glVertex3f(0, 0, z1);
     glEnd();
 
     //fourth face
+    glBindTexture (GL_TEXTURE_2D, textID[0]);
     glBegin(GL_QUADS);
     //glColor4f(1,0,0,1);
+    glTexCoord2f(0,0);
         glVertex3f(x1, y1, z1);
+    glTexCoord2f(1,0);
         glVertex3f(0, y1, z1);
+    glTexCoord2f(1,1);
         glVertex3f(0, 0, z1);
+    glTexCoord2f(0,1);
         glVertex3f(x1, 0, z1);
     glEnd();
 
     //fifth face
+    glBindTexture (GL_TEXTURE_2D, textID[0]);
     glBegin(GL_QUADS);
     //glColor4f(0,0,1,1);
+    glTexCoord2f(0,0);
         glVertex3f(x1, y1, z1);
+    glTexCoord2f(1,0);
         glVertex3f(x1, y1, 0);
+    glTexCoord2f(1,1);
         glVertex3f(0, y1, 0);
+    glTexCoord2f(0,1);
         glVertex3f(0, y1, z1);
     glEnd();
 
     //sixth face
+    glBindTexture (GL_TEXTURE_2D, textID[0]);
     glBegin(GL_QUADS);
     //glColor4f(0,1,0,1);
+    glTexCoord2f(0,0);
         glVertex3f(x1, y1, z1);
+    glTexCoord2f(1,0);
         glVertex3f(x1, y1, 0);
+    glTexCoord2f(1,1);
         glVertex3f(x1, 0, 0);
+    glTexCoord2f(0,1);
         glVertex3f(x1, 0, z1);
     glEnd();
-
 }
 
 void drawRoom(void){

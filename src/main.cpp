@@ -3,9 +3,38 @@
 #include <math.h>
 #include <stdlib.h>
 #include "OpenGLCustomObj.h"
+#include "SOIL.h"
 
 using namespace std;
 
+const unsigned int width = 20, height = 20;
+
+GLuint GetTexture(std::string Filename,GLuint id)
+{
+    GLuint tex_ID;
+
+    tex_ID = SOIL_load_OGL_texture(
+            Filename.c_str(),
+            SOIL_LOAD_AUTO,
+            id,
+            SOIL_FLAG_POWER_OF_TWO
+            | SOIL_FLAG_MIPMAPS
+            | SOIL_FLAG_MULTIPLY_ALPHA
+            | SOIL_FLAG_COMPRESS_TO_DXT
+            | SOIL_FLAG_DDS_LOAD_DIRECT
+            | SOIL_FLAG_INVERT_Y
+    );
+
+    if( tex_ID > 0 )
+    {
+        glEnable( GL_TEXTURE_2D );
+        glBindTexture( GL_TEXTURE_2D, tex_ID );
+
+        return tex_ID;
+    }
+    else
+        return 0;
+}
 
 void seeVar(void){
 
@@ -29,27 +58,42 @@ void seeVar(void){
 }
 
 
+
 void init(void) {
+
     glClearColor(0, 0, 0, 0);
 
+
     glEnable(GL_DEPTH_TEST);
-    glEnable ( GL_TEXTURE_2D );
-
     glClearDepth(1.0);
-    glPixelStorei ( GL_UNPACK_ALIGNMENT, 1 );
 
-    GLuint texture_id[MAX_NO_TEXTURES];
-    glGenTextures (1, texture_id);
+    glBindTexture(GL_TEXTURE_2D, textID[0]);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    //glTexImage2D (GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+    int width, height;
+    GLuint verifier = GetTexture("../Textures/parede branca.jpg",textID[0]);
+
+    if(verifier == 0){
+        cout << "problem guys" << endl;
+    }
 
     glViewport(0,0,(GLsizei) winWidth, (GLsizei) winHeight);
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    texture_id[0] = 1001;
-    glBindTexture ( GL_TEXTURE_2D, texture_id[0] );
+//    glMatrixMode(GL_MODELVIEW);
+//    glLoadIdentity();
 
     //carregar texturas aqui.
+
+
 
 }
 
@@ -69,11 +113,11 @@ void display(void) {
     //floor
     glPushMatrix();
         glTranslatef(0,0,-100);
-        glColor4f(1,1,1,1);
+//        glColor4f(1,1,1,1);
         drawHexahedron(100,-0.5,100);
     glPopMatrix();
 
-    glColor4f(0.75,0.75,0.75,0.5);
+    //glColor4f(0.75,0.75,0.75,0.5);
     drawRoom();
     drawWindow();
     drawTables();
@@ -242,6 +286,7 @@ int main(int argc, char** argv) {
 
     glutInit(&argc,argv);
 
+
     glutInitDisplayMode(GLUT_DEPTH | GLUT_SINGLE | GLUT_RGBA);
     glutInitWindowSize(winWidth, winHeight);
     glutInitWindowPosition(200, 200);
@@ -255,6 +300,7 @@ int main(int argc, char** argv) {
     glutPassiveMotionFunc(mouseMove);
 
     glutMainLoop();
+
 
     return 0;
 }
