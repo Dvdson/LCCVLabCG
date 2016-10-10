@@ -6,8 +6,52 @@
 #define LCCVLABCG_OPENGLCUSTOMOBJ_H
 
 #include <GL/glut.h>
-#define PI 3.14159265359
+#include <SOIL/SOIL.h>
 
+#define PI 3.14159265359
+#define MAX_NUM_TEXTURES 10
+
+GLuint textureID[MAX_NUM_TEXTURES];
+
+void loadTexture(char *texturePath, int index) {
+    int width, height;
+
+    unsigned char* image = SOIL_load_image(texturePath, &width, &height, 0, SOIL_LOAD_RGBA);
+    printf("%d %d\n", width, height);
+
+    glGenTextures(1, &textureID[index]);
+    glBindTexture(GL_TEXTURE_2D, textureID[index]);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+}
+
+void initTextures() {
+    loadTexture((char *) "/home/wmarques/Development/ClionProjects/LCCVLabCG/textures/wall.jpg", 0);
+    loadTexture((char *) "textures/table.jpg", 1);
+    loadTexture((char *) "textures/chair.jpg", 2);
+    loadTexture((char *) "textures/pcscreen.png", 3);
+    loadTexture((char *) "textures/cpu-front.JPG", 4);
+    loadTexture((char *) "textures/lamp.jpg", 5);
+}
+
+//A = (0,1), B = (1,1), C = (1,0), D = (0,0).
+//Formato do Array: vertex[12] = {Ax,Ay,Az,Bx,By,Bz,Cx,Cy,Cz,Dy,Dy,Dz};
+void drawWall(float vertex[12], int textureIndex) {
+
+    glBindTexture(GL_TEXTURE_2D, textureID[textureIndex]);
+
+    glBegin(GL_QUADS);
+    glTexCoord2d(0,1); glVertex3f(vertex[0],vertex[1],vertex[2]);
+    glTexCoord2d(1,1); glVertex3f(vertex[3],vertex[4],vertex[5]);
+    glTexCoord2d(1,0); glVertex3f(vertex[6],vertex[7],vertex[8]);
+    glTexCoord2d(0,0); glVertex3f(vertex[9],vertex[10],vertex[11]);
+    glEnd();
+}
 
 int winWidth = 1280, winHeight = 720;
 
@@ -30,13 +74,18 @@ void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
     GLfloat x1 =0+Dx, y1=0+Dy, z1=0+Dz;
     //first face
 
-    glBegin(GL_QUADS);
+    float wall[12] = {0,0,0,
+                      x1,0,0,
+                      x1,y1,0,
+                      0,y1,0};
+    drawWall(wall,0);
+    /*glBegin(GL_QUADS);
     //glColor4f(1,1,1,1);//white
         glVertex3f(0, 0, 0);
         glVertex3f(x1, 0, 0);
         glVertex3f(x1, y1, 0);
         glVertex3f(0, y1, 0);
-    glEnd();
+    glEnd();*/
 
     //second face
     //glColor4f(1,1,0,1);//yellow

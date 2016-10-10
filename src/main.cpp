@@ -32,6 +32,10 @@ void seeVar(void){
 void init(void) {
     glClearColor(0, 0, 0, 0);
 
+    glEnable(GL_TEXTURE_2D);
+
+    initTextures();
+
     glEnable(GL_DEPTH_TEST);
     glClearDepth(1.0);
 
@@ -196,7 +200,6 @@ void keyboard(unsigned char key, int x, int y) {
             cout << camSencitivity << endl;
             break;
         case 27:
-            exit(0);
             break;
         default:
             break;
