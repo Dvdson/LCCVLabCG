@@ -12,7 +12,7 @@ GLfloat specularLight[4] = {1,1,1,1};
 
 GLfloat specularity[4] = {1,1,1,1};
 GLint especMaterial = 50;
-GLfloat lightPosition[4] = {35,30,-50,1};
+GLfloat lightPosition[4] = {-20,50,20,1};
 GLfloat lightDirection[4] = {0,1,0,1};
 GLfloat blight[] = {2};
 
@@ -66,11 +66,17 @@ void display(void) {
     gluLookAt(camTransX, camTransY, camTransZ, camTransX + camLookX , camTransY + camLookY, camTransZ + camLookZ, 0, 1, 0);
 
 
-    glPushMatrix();
+    /*glPushMatrix();
         glTranslatef(35,30,-50);
         glColor4f(1,0,0,0);
         glutSolidSphere(1,10,10);
     glPopMatrix();
+
+    glPushMatrix();
+    //glTranslatef(0,100,-150);
+    glColor4f(1,0,0,0);
+    glutSolidSphere(10,10,10);
+    glPopMatrix();*/
 
     //floor
     glPushMatrix();
