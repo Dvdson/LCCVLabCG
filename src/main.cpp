@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include <GL/glut.h>
 #include <math.h>
 #include <stdlib.h>
@@ -7,7 +8,7 @@
 using namespace std;
 
 
-void seeVar(void){
+void seeVar(int texid[6]){
 
 
 
@@ -18,11 +19,15 @@ void seeVar(void){
 //    cout << ", " << to_string(camTransZ);
 //    cout << ")" << endl;
 //
-    cout << "camLookVector: ";
-    cout << "( " << to_string(camLookX);
-    cout << ", " << to_string(camLookY);
-    cout << ", " << to_string(camLookZ);
-    cout << ")" << endl;
+//    cout << "camLookVector: ";
+//    cout << "( " << to_string(camLookX);
+//    cout << ", " << to_string(camLookY);
+//    cout << ", " << to_string(camLookZ);
+//    cout << ")" << endl;
+
+    for (int i = 0; i < 6; ++i) {
+
+    }
 
     cout << DirAngleX << endl;
 
@@ -52,6 +57,8 @@ void display(void) {
             | GL_DEPTH_BUFFER_BIT
     );
 
+    int texID[6] = {-1,-1,-1,-1,-1,-1};
+
     //initilazing and setting the camera modelView
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -63,10 +70,13 @@ void display(void) {
     glPushMatrix();
         glTranslatef(0,0,-100);
         glColor4f(1,1,1,1);
-        drawHexahedron(100,-0.5,100);
+        texID[4] = 5;
+        drawHexahedron(100,-0.5,100,texID);
     glPopMatrix();
 
-    glColor4f(0.75,0.75,0.75,0.5);
+        texID[4] = -1;
+
+    //glColor4f(0.75,0.75,0.75,1);
     drawRoom();
     drawWindow();
     drawTables();
@@ -131,9 +141,10 @@ void display(void) {
 
     //roof
     glPushMatrix();
+        //texID[2]=5;
         glColor4f(1,1,1,1);
         glTranslatef(0,30,-25);
-        drawHexahedron(70,1,-75);
+        drawHexahedron(70,1,-75,texID);
     glPopMatrix();
 
     glutSwapBuffers();
@@ -214,9 +225,12 @@ void mouseMove(int x, int y) {
 
     // update deltaAngleX
     GLdouble deltaAngleX = (x - xPast) * 0.01f;
+    GLdouble deltaAngleY = (y - yPast) * 0.01f;
 
     // update camera's direction
     DirAngleX += deltaAngleX;
+
+
     camLookX = sin(DirAngleX);
     camLookZ = -cos(DirAngleX);
 
