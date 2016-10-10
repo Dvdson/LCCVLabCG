@@ -13,6 +13,21 @@
 
 GLuint textureID[MAX_NUM_TEXTURES];
 
+int winWidth = 1280, winHeight = 720;
+
+// the key states. These variables will be zero
+//when no key is being presses
+
+GLdouble xPast = 0, DirAngleX = 3*PI/2;
+GLdouble camLookX=0,camLookY=0,camLookZ =-1;
+//GLdouble camDirX=0, camDirZ=-1;
+//GLdouble camPosX=0, camPosY=15, camPosZ=0;
+GLdouble camTransX=0, camTransY=15, camTransZ=0;
+GLdouble camSencitivity=1;
+
+GLfloat doorAngle = 0;
+bool openDoor=false, closeDoor=false;
+
 void loadTexture(char *texturePath, int index) {
     int width, height;
 
@@ -52,21 +67,6 @@ void drawWall(float vertex[12], int textureIndex) {
     glTexCoord2d(0,0); glVertex3f(vertex[9],vertex[10],vertex[11]);
     glEnd();
 }
-
-int winWidth = 1280, winHeight = 720;
-
-// the key states. These variables will be zero
-//when no key is being presses
-
-GLdouble xPast = 0, DirAngleX = 3*PI/2;
-GLdouble camLookX=0,camLookY=0,camLookZ =-1;
-//GLdouble camDirX=0, camDirZ=-1;
-//GLdouble camPosX=0, camPosY=15, camPosZ=0;
-GLdouble camTransX=0, camTransY=15, camTransZ=0;
-GLdouble camSencitivity=1;
-
-GLfloat doorAngle = 0;
-bool openDoor=false, closeDoor=false;
 
 void drawHexahedron(GLfloat Dx,GLfloat Dy,GLfloat Dz){
 

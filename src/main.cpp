@@ -6,18 +6,18 @@
 
 using namespace std;
 
+GLfloat ambienceLight[4] = {.2,.2,.2,1};
+GLfloat difuseLight[4] = {.7,.7,.7,1};
+GLfloat specularLight[4] = {1,1,1,1};
+
+GLfloat specularity[4] = {1,1,1,1};
+GLint especMaterial = 50;
+GLfloat lightPosition[4] = {35,30,-50,1};
+GLfloat lightDirection[4] = {0,1,0,1};
+GLfloat blight[] = {2};
 
 void seeVar(void){
 
-
-
-
-//    cout << "camPosVector: ";
-//    cout << "( " << to_string(camTransX);
-//    cout << ", " << to_string(camTransY);
-//    cout << ", " << to_string(camTransZ);
-//    cout << ")" << endl;
-//
     cout << "camLookVector: ";
     cout << "( " << to_string(camLookX);
     cout << ", " << to_string(camLookY);
@@ -25,32 +25,39 @@ void seeVar(void){
     cout << ")" << endl;
 
     cout << DirAngleX << endl;
-
 }
 
 
-void init(void) {
-    glClearColor(0, 0, 0, 0);
+void initIlumination() {
 
-    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_LIGHTING);
+    //glEnable(GL_BLEND);
+    //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_NORMALIZE);
 
-    initTextures();
+    glShadeModel(GL_SMOOTH);
 
+    glMaterialfv(GL_FRONT,GL_SPECULAR,specularity);
+    glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
+
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambienceLight);
+
+    glLightfv(GL_LIGHT0,GL_AMBIENT,ambienceLight);
+    glLightfv(GL_LIGHT0,GL_DIFFUSE,difuseLight);
+    glLightfv(GL_LIGHT0,GL_SPECULAR,specularLight);
+    glLightfv(GL_LIGHT0,GL_POSITION,lightPosition);
+    glLightfv(GL_LIGHT0,GL_SPOT_DIRECTION,lightDirection);
+    glLightfv(GL_LIGHT0,GL_SPOT_EXPONENT,blight);
+    //glLightf(GL_LIGHT0,GL_SPOT_CUTOFF,50);
+    glEnable(GL_LIGHT0);
+
+    glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_DEPTH_TEST);
-    glClearDepth(1.0);
-
-    glViewport(0,0,(GLsizei) winWidth, (GLsizei) winHeight);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
 }
 
 void display(void) {
 
-    glClear(GL_COLOR_BUFFER_BIT
-            | GL_DEPTH_BUFFER_BIT
-    );
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //initilazing and setting the camera modelView
     glMatrixMode(GL_MODELVIEW);
@@ -58,6 +65,12 @@ void display(void) {
     gluPerspective(60.0,(GLfloat) winWidth/(GLfloat) winHeight,1.0,200.0);
     gluLookAt(camTransX, camTransY, camTransZ, camTransX + camLookX , camTransY + camLookY, camTransZ + camLookZ, 0, 1, 0);
 
+
+    glPushMatrix();
+        glTranslatef(35,30,-50);
+        glColor4f(1,0,0,0);
+        glutSolidSphere(1,10,10);
+    glPopMatrix();
 
     //floor
     glPushMatrix();
@@ -152,6 +165,8 @@ void display(void) {
 
         glutPostRedisplay();
     }
+
+    glTranslatef(0,0,0);
 }
 
 
@@ -226,6 +241,22 @@ void mouseMove(int x, int y) {
 //    glutWarpPointer((int)(winWidth/2 + 0.5),(int)(winHeight/2 + 0.5));
 //    seeVar();
     glutPostRedisplay();
+}
+
+void init(void) {
+    glClearColor(0, 0, 0, 0);
+
+    glEnable(GL_TEXTURE_2D);
+
+    initTextures();
+    initIlumination();
+
+    glClearDepth(1.0);
+
+    glViewport(0,0,(GLsizei) winWidth, (GLsizei) winHeight);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
 }
 
