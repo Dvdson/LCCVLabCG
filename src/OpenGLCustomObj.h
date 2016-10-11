@@ -6,8 +6,8 @@
 #define LCCVLABCG_OPENGLCUSTOMOBJ_H
 
 #include <GL/glut.h>
-//include <SOIL/SOIL.h>
-#include<SOIL.h>
+#include <SOIL/SOIL.h>
+//#include<SOIL.h>
 #include<vector>
 
 #define PI 3.14159265359
@@ -50,12 +50,12 @@ void loadTexture(char *texturePath, int index) {
 }
 
 void initTextures() {
-    loadTexture((char *) "/home/davidson/ClionProjects/LCCVLabCG/textures/wall.jpg", 0);
-    loadTexture((char *) "/home/davidson/ClionProjects/LCCVLabCG/textures/table.jpg", 1);
-    loadTexture((char *) "/home/davidson/ClionProjects/LCCVLabCG/textures/chair.jpg", 2);
-    loadTexture((char *) "/home/davidson/ClionProjects/LCCVLabCG/textures/pcscreen.png", 3);
-    loadTexture((char *) "/home/davidson/ClionProjects/LCCVLabCG/textures/cpu-front.JPG", 4);
-    loadTexture((char *) "/home/davidson/ClionProjects/LCCVLabCG/textures/floor.jpg", 5);
+    loadTexture((char *) "/home/wmarques/Development/ClionProjects/LCCVLabCG/textures/wall.jpg", 0);
+    loadTexture((char *) "/home/wmarques/Development/ClionProjects/LCCVLabCG/textures/table.jpg", 1);
+    loadTexture((char *) "/home/wmarques/Development/ClionProjects/LCCVLabCG/textures/chair.jpg", 2);
+    loadTexture((char *) "/home/wmarques/Development/ClionProjects/LCCVLabCG/textures/texturespcscreen.png", 3);
+    loadTexture((char *) "/home/wmarques/Development/ClionProjects/LCCVLabCG/textures/cpu-front.JPG", 4);
+    loadTexture((char *) "/home/wmarques/Development/ClionProjects/LCCVLabCG/textures/floor2.jpg", 5);
 }
 
 //A = (0,1), B = (1,1), C = (1,0), D = (0,0).
@@ -63,8 +63,6 @@ void initTextures() {
 void drawWall(std::vector<float> vertex, int textureIndex) {
 
     if(vertex.size() != 12) return;
-
-
 
     glBindTexture(GL_TEXTURE_2D, textureID[textureIndex]);
 

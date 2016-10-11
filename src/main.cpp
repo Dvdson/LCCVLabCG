@@ -86,7 +86,6 @@ void display(void) {
     gluPerspective(60.0,(GLfloat) winWidth/(GLfloat) winHeight,1.0,200.0);
     gluLookAt(camTransX, camTransY, camTransZ, camTransX + camLookX , camTransY + camLookY, camTransZ + camLookZ, 0, 1, 0);
 
-
     /*glPushMatrix();
         glTranslatef(35,30,-50);
         glColor4f(1,0,0,0);
@@ -103,7 +102,7 @@ void display(void) {
     glPushMatrix();
         glTranslatef(0,0,-100);
         glColor4f(1,1,1,1);
-        texID[4] = 5;
+        texID[2] = 5;
         drawHexahedron(100,-0.5,100,texID);
     glPopMatrix();
 
@@ -175,9 +174,10 @@ void display(void) {
     //roof
     glPushMatrix();
         //texID[2]=5;
+        int aux[6] = {-1,-1,0,-1,-1,-1};
         glColor4f(1,1,1,1);
         glTranslatef(0,30,-25);
-        drawHexahedron(70,1,-75,texID);
+        drawHexahedron(70,1,-75,aux);
     glPopMatrix();
 
     glutSwapBuffers();
