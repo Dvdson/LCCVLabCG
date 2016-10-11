@@ -6,8 +6,8 @@
 #define LCCVLABCG_OPENGLCUSTOMOBJ_H
 
 #include <GL/glut.h>
-#include <SOIL/SOIL.h>
-//#include<SOIL.h>
+//include <SOIL/SOIL.h>
+#include<SOIL.h>
 #include<vector>
 
 #define PI 3.14159265359
