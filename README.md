@@ -1,6 +1,8 @@
 # LCCVLabCG
 A model of a lab in openGL
 
+video com a finalização do projeto:https://youtu.be/2ZEv0kcZNMY
+
 Seguem as regras para o desenvolvimento do Projeto da Nota B1:
 Valor 3 Pontos
 
